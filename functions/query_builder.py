@@ -15,3 +15,12 @@ class QueryBuilder():
         values = [ tuple( d[i] for i in d) for d in data]
         return sql, values
     
+    @staticmethod
+    def vector_search():
+
+        return f"""
+            SELECT content, embedding <=> %s::vector as similarity_score
+            FROM documents
+            ORDER BY similarity_score ASC
+            LIMIT %s;
+        """
